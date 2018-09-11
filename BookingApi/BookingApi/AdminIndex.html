@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Admin</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <style>
+        header {
+            margin-top: 0em;
+            font-size: 4em;
+            text-align: center;
+            background-color: bisque;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            text-align: center;
+        }
+
+        .search {
+            font-size: 1.3em;
+            background-color: aqua;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial;
+        }
+
+        h3 {
+            font-size: 2.2em;
+        }
+
+        .tablink {
+            background-color: #555;
+            color: black;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            font-size: 1.5em;
+            font-weight: bold;
+            width: 25%;
+        }
+
+            .tablink:hover {
+                background-color: #777;
+            }
+
+        .tabcontent div {
+            display: block;
+            margin-top: 0.5em;
+        }
+
+        .tabcontent {
+            color: black;
+            border: 1px solid black;
+            width: 70%;
+            font-size: 1.5em;
+            margin: 0 auto;
+            display: none;
+            padding: 20px 20px;
+            height: 100%;
+        }
+
+        span {
+            text-align: right;
+        }
+
+        input {
+            margin-left: 0em;
+            font-size: 1em;
+            margin: 0 auto;
+            width: 80%;
+        }
+
+        button {
+            margin-top: 1em;
+        }
+
+        #logout {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Booking Hub
+        <button id="logout" onclick="location.assign('Login.html')">Log Out</button>
+    </header>
+    <form>
+        <div class="container">
+            <button class="tablink" onclick="openPage('flights', this, 'bisque')" id="defaultOpen">Flights</button>
+            <button class="tablink" onclick="openPage('cars', this, 'bisque')">Cars</button>
+            <button class="tablink" onclick="openPage('hotels', this, 'bisque')">Hotels</button>
+            <button class="tablink" onclick="openPage('activity', this, 'bisque')">Activity</button>
+
+            <div id="flights" class="tabcontent">
+
+                <h3>Flights</h3>
+
+                <div>
+                    <span>Flight Name: </span>
+                    <input type="text" id="flight_name" placeholder="Enter Company" required />
+                </div>
+                <div>
+                    <span>From: </span>
+                    <input type="text" id="from" placeholder="Enter City" required />
+                </div>
+                <div>
+                    <span>To: </span>
+                    <input type="text" id="to" placeholder="Enter City" required />
+                </div>
+                <div>
+                    <span>Arrival: </span>
+                    <input type="date" id="arrival" required />
+                </div>
+                <div>
+                    <span>Departure: </span>
+                    <input type="date" id="departure" required />
+                </div>
+                <div>
+                    <span>Cost: </span>
+                    <input type="text" id="cost" placeholder="Price" required />
+                </div>
+                <div>
+                    <span>Time: </span>
+                    <input type="text" id="time" required />
+                </div>
+                <button class="search" onclick="addFlight()">Search</button>
+            </div>
+
+
+            <div id="cars" class="tabcontent">
+                <h3>Cars</h3>
+                <div>
+                    <label>Model: </label>
+                    <input type="text" id="car_name" placeholder="Enter Car" required />
+                </div>
+                <div>
+                    <label>Picking Up: </label>
+                    <input type="text" id="start" placeholder="Enter City" required />
+                </div>
+                <div>
+                    <label>Dropping Off: </label>
+                    <input type="text" id="destination" placeholder="Enter City" required />
+                </div>
+                <div>
+                    <label>Pick-Up Date: </label>
+                    <input type="datetime-local" id="pickup" required />
+                </div>
+                <div>
+                    <label>Drop-Off Date: </label>
+                    <input type="datetime-local" id="drop" required />
+                </div>
+
+                <button class="search" onclick="addCar()">Search</button>
+
+            </div>
+
+            <div id="hotels" class="tabcontent">
+                <h3>Hotels</h3>
+                <div>
+                    <label>Hotel Name: </label>
+                    <input type="text" id="name" placeholder="Enter Name" required />
+                </div>
+                <div>
+                    <label>Hotel Price: </label>
+                    <input type="number" id="price" placeholder="Enter Price" required />
+                </div>
+                <div>
+                    <label>Address: </label>
+                    <input type="text" id="address" placeholder="Enter Address" required />
+                </div>
+                <div>
+                    <label>Rating: </label>
+                    <input id="rating" type="number" required />
+                </div>
+
+                <button class="search" onclick="addHotel()">Search</button>
+
+            </div>
+
+            <div id="activity" class="tabcontent">
+                <h3>Activity</h3>
+                <div>
+                    <label>Activity : </label>
+                    <input type="text" id="activity_name" placeholder="Enter Activity" required />
+                </div>
+                <div>
+                    <label>Destination: </label>
+                    <input type="text" id="activity_destination" placeholder="Enter City" required />
+                </div>
+                <div>
+                    <label>From: </label>
+                    <input type="date" id="start-date" required />
+                </div>
+                <div>
+                    <label>To: </label>
+                    <input type="date" id="end-date" required />
+                </div>
+
+                <button class="search" onclick="addActivity()">Search</button>
+            </div>
+
+        </div>
+    </form>
+
+    <script src="script.js"></script>
+    <script>
+        function openPage(pageName, elmnt, color) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.backgroundColor = "";
+            }
+            document.getElementById(pageName).style.display = "block";
+            elmnt.style.backgroundColor = color;
+
+        }
+        document.getElementById("defaultOpen").click();
+    </script>
+
+</body>
+</html>
